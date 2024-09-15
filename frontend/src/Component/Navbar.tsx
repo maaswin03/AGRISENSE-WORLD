@@ -1,6 +1,6 @@
 import {useState } from "react";
 import { Link } from 'react-router-dom';
-import { SignIn, UserButton } from "@clerk/clerk-react";
+import { UserButton } from "@clerk/clerk-react";
 import '../Component/Navbar.css';
 
 type SubmenuState = {

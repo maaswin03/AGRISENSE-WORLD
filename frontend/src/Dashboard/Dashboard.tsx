@@ -16,6 +16,8 @@ import {
   Legend,
   Filler,
 } from "chart.js";
+import Navbar from "@/Component/Navbar";
+import Footer from "@/Component/Footer";
 
 ChartJS.register(
   CategoryScale,
@@ -40,7 +42,7 @@ interface SensorData1 {
 
 function Dashboard() {
   const [sensorData, setSensorData] = useState<SensorData1>({});
-  const d1 = useQuery(api.users.fetchAllDataFromSensor)
+  const d1 = useQuery(api.myFunctions.fetchAllDataFromSensor)
 
   useEffect(() => {
     if (d1) {
@@ -622,7 +624,7 @@ function Dashboard() {
 
   return (
     <div>
-
+      <Navbar/>
       <div className="dash1">
         <h2>Sensor Data Over Time</h2>
         <p>Visual representation of sensor data over time</p>
@@ -907,7 +909,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-
+      <Footer/>
     </div>
   );
 }

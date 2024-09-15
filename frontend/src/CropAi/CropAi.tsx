@@ -1,6 +1,7 @@
 import { useEffect, useState, MouseEventHandler } from "react";
 import axios from "axios";
 import "../CropAi/CropAi.css";
+import Navbar from "@/Component/Navbar";
 
 interface DataItem {
   [key: string]: any;
@@ -56,6 +57,7 @@ function CropAi() {
 
   return (
     <div>
+      <Navbar/>
       <div className="crop6">
         <div className="crop7">
           <h1>Our Ai Recommendation</h1>

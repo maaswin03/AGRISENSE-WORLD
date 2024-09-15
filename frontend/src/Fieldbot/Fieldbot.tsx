@@ -9,6 +9,8 @@ import FormGroup from "@mui/material/FormGroup";
 import Switch from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import Navbar from "@/Component/Navbar";
+import Footer from "@/Component/Footer";
 
 interface SensorData {
   soil?: string;
@@ -32,10 +34,10 @@ interface SensorData {
   water_level4?: number;
   water_level5?: number;
   water_level6?: number;
-  irrigation?:number;
-  irrigationtime?:string;
-  phvalue?:Float32Array;
-  gas?:number;
+  irrigation?: number;
+  irrigationtime?: string;
+  phvalue?: Float32Array;
+  gas?: number;
 }
 
 function Fieldbot() {
@@ -252,7 +254,7 @@ function Fieldbot() {
 
   return (
     <div>
-
+      <Navbar />
       <div className="field1">
         <div className="field2">
           <div className="field3">
@@ -368,7 +370,7 @@ function Fieldbot() {
           </div>
           <div className="dash8">
             <p>Manually control irrigation</p>
-            <FormGroup style={{margin:'9%'}}>
+            <FormGroup style={{ margin: '9%' }}>
               <Stack direction="row" spacing={1} alignItems="center">
                 <Typography>Off</Typography>
                 <AntSwitch
@@ -486,6 +488,7 @@ function Fieldbot() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

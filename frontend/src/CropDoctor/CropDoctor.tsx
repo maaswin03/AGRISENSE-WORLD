@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import "../CropDoctor/CropDoctor.css";
+import Navbar from "@/Component/Navbar";
 
 interface DiseaseResponseData {
   text: string;
@@ -69,6 +70,7 @@ function CropDoctor() {
 
   return (
     <div>
+      <Navbar/>
       <div className="crop6">
         <div className="crop7">
           <h1>Crop Disease Detection</h1>

@@ -1,13 +1,13 @@
 import React from 'react';
 import { SignIn} from '@clerk/clerk-react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
 
-  const handleSignInSuccess = () => {
-    navigate('/');
-  };
+// //   const handleSignInSuccess = () => {
+// //     navigate('/');
+// //   };
 
   return (
     <div className="login-container">

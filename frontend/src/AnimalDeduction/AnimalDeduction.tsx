@@ -7,6 +7,7 @@ import rhino from "../Image/rhino.jpg";
 import crop from "../Image/crop.jpg";
 import rabbit from "../Image/rabbit.jpeg";
 import "../AnimalDeduction/AnimalDeduction.css";
+import Navbar from "@/Component/Navbar";
 
 function AnimalDeduction() {
   const [animal1, setanimal1] = useState<boolean>(false);
@@ -18,7 +19,7 @@ function AnimalDeduction() {
 
   return (
     <div>
-
+      <Navbar/>
       <div className="animal1">
         <div className="animal2">
           <h1>Animal Detection</h1>

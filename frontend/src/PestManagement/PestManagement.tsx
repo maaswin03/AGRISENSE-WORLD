@@ -16,6 +16,7 @@ import image14 from "../Image/Chemical Control.webp";
 import image15 from "../Image/Genetic Control.jpeg";
 import image16 from "../Image/Integrated Pest Management (IPM)- .jpeg";
 import { MouseEventHandler } from "react";
+import Navbar from "@/Component/Navbar";
 
 
 function Pestmanagement() {
@@ -50,7 +51,7 @@ function Pestmanagement() {
 
   return (
     <div>
-
+      <Navbar />
       <div className="animal1">
         <div className="animal2">
           <h1>Pest Detection</h1>
