@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { SignInButton, UserButton } from "@clerk/clerk-react";
+import { UserButton, useAuth } from "@clerk/clerk-react";
 import {
   Authenticated,
   Unauthenticated,
@@ -7,25 +7,53 @@ import {
   useQuery,
 } from "convex/react";
 import { api } from "../convex/_generated/api";
+import Navbar  from "./Component/Navbar";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Dashboard from './Dashboard/Dashboard';
+import CropDoctor from './CropDoctor/CropDoctor';
+import Home from './Home/Home';
+import Fieldbot from './Fieldbot/Fieldbot';
+import CropAi from './CropAi/CropAi';
+import AnimalDeduction from './AnimalDeduction/AnimalDeduction';
+import PestManagement from './PestManagement/PestManagement';
+import Pricing from './Pricing/Pricing';
+import Profile from './Profile/Profile';
+import Alert from './Alert/Alert';
+import Chatbot from './Chatbot/Chatbot';
+import Login from "./Login/Login";
 
 export default function App() {
   return (
-    <main className="container max-w-2xl flex flex-col gap-8">
-      <h1 className="text-4xl font-extrabold my-8 text-center">
-        Convex + React (Vite) + Clerk Auth
-      </h1>
-      <Authenticated>
-        <SignedIn />
-      </Authenticated>
-      <Unauthenticated>
-        <div className="flex justify-center">
-          <SignInButton mode="modal">
-            <Button>Sign in</Button>
-          </SignInButton>
-        </div>
-      </Unauthenticated>
-    </main>
+      <Router>
+        <Routes>
+
+          <Route path="/" element={<Home />} />
+
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/cropdoctor" element={<PrivateRoute><CropDoctor /></PrivateRoute>} />
+          <Route path="/fieldbot" element={<PrivateRoute><Fieldbot /></PrivateRoute>} />
+          <Route path="/cropai" element={<PrivateRoute><CropAi /></PrivateRoute>} />
+          <Route path="/animaldetection" element={<PrivateRoute><AnimalDeduction/></PrivateRoute>} />
+          <Route path="/pestmanagement" element={<PrivateRoute><PestManagement /></PrivateRoute>} />
+          <Route path="/pricing" element={<PrivateRoute><Pricing /></PrivateRoute>} />
+          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+          <Route path="/alert" element={<PrivateRoute><Alert /></PrivateRoute>} />
+          <Route path="/chatbot" element={<PrivateRoute><Chatbot /></PrivateRoute>} />
+
+          <Route path="*" element={<Login/>} />
+        </Routes>
+      </Router>
   );
+}
+
+function PrivateRoute({ children }: { children: JSX.Element }) {
+  const { isSignedIn } = useAuth();
+
+  if (!isSignedIn) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
 }
 
 function SignedIn() {
@@ -37,6 +65,7 @@ function SignedIn() {
 
   return (
     <>
+      {/* <Navbar />
       <p>Welcome {viewer}!</p>
       <p className="flex gap-4 items-center">
         This is you:
@@ -84,7 +113,7 @@ function SignedIn() {
         >
           Convex docs
         </a>
-      </p>
+      </p> */}
     </>
   );
 }

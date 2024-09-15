@@ -13,7 +13,6 @@ export default defineSchema(
         subFieldOne: v.array(v.number()),
       }),
     }),
-    // This definition matches the example query and mutation code:
     numbers: defineTable({
       value: v.number(),
     }),
