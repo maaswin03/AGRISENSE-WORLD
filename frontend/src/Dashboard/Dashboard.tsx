@@ -32,12 +32,9 @@ ChartJS.register(
   Legend
 );
 
-
-
 interface SensorData1 {
   [key: string]: any;
 }
-
 
 
 function Dashboard() {
