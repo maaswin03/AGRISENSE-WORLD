@@ -8,7 +8,6 @@ import CropAi from './CropAi/CropAi';
 import AnimalDeduction from './AnimalDeduction/AnimalDeduction';
 import PestManagement from './PestManagement/PestManagement';
 import Pricing from './Pricing/Pricing';
-import Profile from './Profile/Profile';
 import Alert from './Alert/Alert';
 import Chatbot from './Chatbot/Chatbot';
 import Login from "./Login/Login";
@@ -27,7 +26,6 @@ export default function App() {
           <Route path="/animaldetection" element={<PrivateRoute><AnimalDeduction/></PrivateRoute>} />
           <Route path="/pestmanagement" element={<PrivateRoute><PestManagement /></PrivateRoute>} />
           <Route path="/pricing" element={<PrivateRoute><Pricing /></PrivateRoute>} />
-          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="/alert" element={<PrivateRoute><Alert /></PrivateRoute>} />
           <Route path="/chatbot" element={<PrivateRoute><Chatbot /></PrivateRoute>} />
 

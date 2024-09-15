@@ -56,7 +56,6 @@ function Navbar() {
                         <div className="dropdown-content">
                             <Link to="/chatbot">Chatbot</Link>
                             <Link to="/alert">Alert & Notifications</Link>
-                            <Link to="/alert">Alert & Notifications</Link>
                         </div>
                     </div>
                     <Link to="/pricing">Pricing</Link>
@@ -97,7 +96,6 @@ function Navbar() {
                             <ul className={`children ${isSubmenuOpen.others ? 'open' : ''}`}>
                                 <li><Link to="/chatbot">Chatbot</Link></li>
                                 <li><Link to="/alert">Alert & Notifications</Link></li>
-                                <li><Link to="/profile">Profile</Link></li>
                             </ul>
                         </li>
                         <li><Link to="/pricing">Pricing</Link></li>
