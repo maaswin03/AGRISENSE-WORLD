@@ -8,12 +8,10 @@ import p3 from '../Image/p3.jpg'
 import Footer from '../Component/Footer'
 
 
-
 function Home() {
     return (
         <div>
             <Navbar />
-
             <div className='home1'>
                 <div className='home2'>
                     <div className='home3' >
@@ -118,7 +116,7 @@ function Home() {
                 </div>
             </div>
 
-            <Footer/>
+            <Footer />
         </div>
     )
 }
