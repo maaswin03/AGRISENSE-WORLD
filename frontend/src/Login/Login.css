@@ -1,5 +1,11 @@
-.login1{
-    width: 30%;
-    margin: auto;
-    margin-top: 4%;
-}
+.login1 {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh;
+  }
+  
+  body {
+    margin: 0;
+  }
+  
