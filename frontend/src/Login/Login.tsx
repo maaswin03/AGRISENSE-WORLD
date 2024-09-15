@@ -1,8 +1,8 @@
 import React from 'react';
 import { SignIn } from '@clerk/clerk-react';
 import Navbar from '@/Component/Navbar';
-import Footer  from '../Component/Footer';
 import './Login.css'
+
 const Login: React.FC = () => {
   return (
     <div>
