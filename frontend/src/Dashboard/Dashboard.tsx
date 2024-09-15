@@ -54,7 +54,7 @@ function Dashboard() {
     }
   }, [d1]);
 
-  console.log(sensorData?.current_humidity)
+  console.log(sensorData)
 
 
   // useEffect(() => {

@@ -81,7 +81,6 @@ export const fetchAllDataFromSensor = query({
   args: {},
   handler: async (ctx) => {
     const data = await ctx.db.query("data_from_sensor").collect();
-    console.log(data)
     return data;
   },
 });
