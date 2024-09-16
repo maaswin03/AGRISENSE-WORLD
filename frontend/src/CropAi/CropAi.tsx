@@ -6,10 +6,7 @@ import { api } from "../../convex/_generated/api";
 import { useQuery } from "convex/react";
 import { useMutation } from 'convex/react';
 import { useUser } from '@clerk/clerk-react';
-
-// interface DataItem {
-//   [key: string]: any;
-// }
+import  Footer  from "../Component/Footer";
 
 interface ResponseData {
   text: string;
@@ -20,7 +17,6 @@ interface SensorData1 {
 }
 
 function CropAi() {
-  // const [data, setData] = useState<DataItem[]>([]);
   const text = "";
   const [cleanedResponse, setCleanedResponse] = useState<string>("");
   const [sensorData, setSensorData] = useState<SensorData1>({});
@@ -65,64 +61,12 @@ function CropAi() {
     }
   };
 
-  // useEffect(() => {
-  //   fetch("https://final-1-jkbd.onrender.com/api/data")
-  //     .then((response) => response.json())
-  //     .then((data: DataItem[]) => {
-  //       setData(shuffleArray(data));
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data:", error);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   if (d1) {
-  //     setSensorData(d1);
-
-  //     if (Array.isArray(d1) && d1.length > 0) {
-  //       setSensorData(d1[0]);
-  //     }
-  //   }
-  // }, [d1]);
-
-  // useEffect(() => {
-  //   if (d1 && Array.isArray(d1)) {
-  //     d1.forEach((item, index) => {
-  //       console.log(`Item ${index + 1}:`);
-  //       console.log(`  Plant: ${item.plant}`);
-  //       console.log(`  Temperature: ${item.temprature}`);
-  //       console.log(`  Humidity: ${item.humidity}`);
-  //       console.log(`  Soil Moisture: ${item.soilmoisture}`);
-  //       console.log(`  Average Life Span: ${item.avglifespan}`);
-  //       console.log(`  Content: ${item.content}`);
-  //       console.log('----------------------');
-  //     });
-
-  //     if (d1.length > 0) {
-  //       setSensorData(d1[0]);
-  //     }
-  //   }
-  // }, [d1]);
-
   useEffect(() => {
     if (d1 && Array.isArray(d1)) {
       setSensorData(d1.length > 0 ? d1[0] : {});
       console.log(sensorData)
     }
   }, [d1]);
-
-
-
-
-  // const shuffleArray = (array: DataItem[]): DataItem[] => {
-  //   let shuffledArray = array.slice();
-  //   for (let i = shuffledArray.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-  //   }
-  //   return shuffledArray;
-  // };
 
   return (
     <div>
@@ -203,6 +147,7 @@ function CropAi() {
           )}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

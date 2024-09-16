@@ -73,6 +73,8 @@ const Pricing: React.FC = () => {
     <div>
       <Navbar />
       <div className="products1">
+      <h2>Dashboard</h2>
+      <p>Real-time monitoring of your fields</p>
         <div className="products2">
           <div className="products3">
             <div>
