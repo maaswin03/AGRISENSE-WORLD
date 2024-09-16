@@ -51,8 +51,6 @@ function Dashboard() {
     }
   }, [d1]);
 
-  console.log(sensorData)
-
 
   // useEffect(() => {
   //   const fetchData = async () => {
