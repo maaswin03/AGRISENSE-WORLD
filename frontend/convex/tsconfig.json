@@ -9,7 +9,6 @@
     "strict": true,
     "skipLibCheck": true,
 
-    /* These compiler options are required by Convex */
     "target": "ESNext",
     "lib": ["ES2021", "dom", "ESNext.Array"],
     "forceConsistentCasingInFileNames": true,
