@@ -22,12 +22,15 @@ function CropDoctor() {
   const [cleanedDiseaseResponse, setCleanedDiseaseResponse] = useState<string>("");
   const [cleanedFertilizerResponse, setCleanedFertilizerResponse] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const mutateSomething = useMutation(api.myFunctions.fertlizerrecommendation);
   const { isSignedIn, user, isLoaded } = useUser();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setFile(e.target.files[0]);
+      const uploadedFile = e.target.files[0];
+      setFile(uploadedFile);
+      setImagePreviewUrl(URL.createObjectURL(uploadedFile)); // Set image preview URL
     }
   };
 
@@ -73,16 +76,16 @@ function CropDoctor() {
       if (!isLoaded) {
         return;
       }
-      
+
       if (isSignedIn && user) {
         try {
-          await mutateSomething({ 
-            name: user.fullName || 'Unknown', 
-            email: user.primaryEmailAddressId || 'Unknown' ,
-            cropname:cropName,
-            price:price,
-            type:fertilizerType,
-            output:cleanedResponse,
+          await mutateSomething({
+            name: user.fullName || 'Unknown',
+            email: user.primaryEmailAddressId || 'Unknown',
+            cropname: cropName,
+            price: price,
+            type: fertilizerType,
+            output: cleanedResponse,
           });
           console.log('User added to database successfully');
         } catch (error) {
@@ -97,7 +100,7 @@ function CropDoctor() {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="crop6">
         <div className="crop7">
           <h1>Crop Disease Detection</h1>
@@ -110,6 +113,12 @@ function CropDoctor() {
           <div className="crop22">
             <input type="file" onChange={handleFileChange} required />
           </div>
+          {imagePreviewUrl && (
+            <div className="crop22" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '2%' }}>
+              <img src={imagePreviewUrl} alt="Uploaded preview" style={{ width: "20%", height: "20%", objectFit: "cover" }} />
+            </div>
+          )}
+
           <button type="submit" style={{ marginBottom: "3%" }}>
             Know about your crop disease
           </button>
@@ -188,7 +197,7 @@ function CropDoctor() {
           )}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
