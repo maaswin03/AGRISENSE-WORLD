@@ -54,6 +54,11 @@
   opacity: 0.8;
 }
 
+.home4 a{
+  text-decoration: none;
+  color: #009379;
+}
+
 #home4 {
   background-color: #f4f4f4;
   border: 1px solid #009379;
@@ -206,7 +211,7 @@
   margin: auto;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  border-bottom: 15px solid #009379;
+  border-bottom: 15px solid rgba(46, 141, 78, 1);;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 30px 10px 30px 10px;
 }

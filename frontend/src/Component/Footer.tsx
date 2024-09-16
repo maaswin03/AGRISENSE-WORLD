@@ -1,4 +1,5 @@
 import '../Component/Footer.css'
+import {Link} from 'react-router-dom';
 
 function Footer(){
   return (
@@ -15,11 +16,11 @@ function Footer(){
           <div className="col-xs-6 col-md-3">
             <h6>Categories</h6>
             <ul className="footer-links">
-              <li><a href="">Crop Recommendation</a></li>
-              <li><a href="">Animal detection</a></li>
-              <li><a href="">Pest Detection</a></li>
-              <li><a href="">Chat bot</a></li>
-              <li><a href="">Fertlizer Recommendation</a></li>
+              <li><Link to="/cropai">Crop Recommendation</Link></li>
+              <li><Link to="/animaldetection">Animal detection</Link></li>
+              <li><Link to="/pestmanagement">Pest Detection</Link></li>
+              <li><Link to="/chatbot">Chat bot</Link></li>
+              <li><Link to="/cropdoctor">Fertlizer Recommendation</Link></li>
             </ul>
           </div>
 
