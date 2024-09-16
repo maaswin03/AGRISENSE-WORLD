@@ -43,5 +43,99 @@ export const createTask = mutation({
   },
 });
 
+export const plantrecommendation = mutation({
+  args: { name: v.string(), email: v.string(), output: v.string() },
+  handler: async (ctx, { name, email, output }) => {
+    try {
+      const existingUser = await ctx.db.query("plant_recommendation")
+        .filter((q) => q.eq(q.field("email"), email))
+        .first();
+
+      if (existingUser) {
+        const updatedTaskId = await ctx.db.patch(existingUser._id, {
+          output
+        });
+        console.log('User updated with new output');
+        return updatedTaskId;
+      } else {
+        const newTaskId = await ctx.db.insert("plant_recommendation", {
+          name,
+          email,
+          output,
+        });
+        console.log('New user added');
+        return newTaskId;
+      }
+    } catch (error) {
+      console.error("Error updating or inserting data into the database:", error);
+      throw new Error("Failed to create or update recommendation");
+    }
+  },
+});
+
+
+export const fertlizerrecommendation = mutation({
+  args: { name: v.string(), email: v.string(), cropname:v.string(), price:v.string() , type:v.string() , output: v.string() },
+  handler: async (ctx, { name, email, cropname , price , type, output }) => {
+    try {
+      const existingUser = await ctx.db.query("fertilizer_recommendation")
+        .filter((q) => q.eq(q.field("email"), email))
+        .first();
+
+      if (existingUser) {
+        const updatedTaskId = await ctx.db.patch(existingUser._id, {
+          output
+        });
+        console.log('User updated with new output');
+        return updatedTaskId;
+      } else {
+        const newTaskId = await ctx.db.insert("fertilizer_recommendation", {
+          name,
+          email,
+          cropname,
+          price,
+          type,
+          output,
+        });
+        console.log('New user added');
+        return newTaskId;
+      }
+    } catch (error) {
+      console.error("Error updating or inserting data into the database:", error);
+      throw new Error("Failed to create or update recommendation");
+    }
+  },
+});
+
+
+export const pestrecommendation = mutation({
+  args: { name: v.string(), email: v.string(), output: v.string() },
+  handler: async (ctx, { name, email, output }) => {
+    try {
+      const existingUser = await ctx.db.query("pest_recommendation")
+        .filter((q) => q.eq(q.field("email"), email))
+        .first();
+
+      if (existingUser) {
+        const updatedTaskId = await ctx.db.patch(existingUser._id, {
+          output
+        });
+        console.log('User updated with new output');
+        return updatedTaskId;
+      } else {
+        const newTaskId = await ctx.db.insert("pest_recommendation", {
+          name,
+          email,
+          output,
+        });
+        console.log('New user added');
+        return newTaskId;
+      }
+    } catch (error) {
+      console.error("Error updating or inserting data into the database:", error);
+      throw new Error("Failed to create or update recommendation");
+    }
+  },
+});
 
 

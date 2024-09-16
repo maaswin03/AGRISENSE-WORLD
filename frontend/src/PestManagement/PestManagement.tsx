@@ -17,6 +17,9 @@ import image15 from "../Image/Genetic Control.jpeg";
 import image16 from "../Image/Integrated Pest Management (IPM)- .jpeg";
 import { MouseEventHandler } from "react";
 import Navbar from "@/Component/Navbar";
+import { useMutation } from 'convex/react';
+import { useUser } from '@clerk/clerk-react';
+import { api } from "../../convex/_generated/api";
 
 
 function Pestmanagement() {
@@ -28,6 +31,8 @@ function Pestmanagement() {
   const [animal6, setanimal6] = useState<boolean>(false);
   const text = "";
   const [cleanedResponse, setCleanedResponse] = useState<string>("");
+  const mutateSomething = useMutation(api.myFunctions.pestrecommendation);
+  const { isSignedIn, user, isLoaded } = useUser();
 
 
 
@@ -44,6 +49,24 @@ function Pestmanagement() {
       const cleanedResponse = responseText.replace(/\*/g, '');
 
       setCleanedResponse(cleanedResponse);
+
+      if (!isLoaded) {
+        return;
+      }
+
+      if (isSignedIn && user) {
+        try {
+          await mutateSomething({ 
+            name: user.fullName || 'Unknown', 
+            email: user.primaryEmailAddressId || 'Unknown' ,
+            output:cleanedResponse,
+          });
+          console.log('User added to database successfully');
+        } catch (error) {
+          console.error('Error adding user to database:', error);
+        }
+      }
+
     } catch (error) {
       console.error("Error:", error);
     }

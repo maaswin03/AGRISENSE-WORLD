@@ -4,6 +4,8 @@ import "../CropAi/CropAi.css";
 import Navbar from "@/Component/Navbar";
 import { api } from "../../convex/_generated/api";
 import { useQuery } from "convex/react";
+import { useMutation } from 'convex/react';
+import { useUser } from '@clerk/clerk-react';
 
 // interface DataItem {
 //   [key: string]: any;
@@ -23,6 +25,8 @@ function CropAi() {
   const [cleanedResponse, setCleanedResponse] = useState<string>("");
   const [sensorData, setSensorData] = useState<SensorData1>({});
   const d1 = useQuery(api.myFunctions.fetchplantdata)
+  const mutateSomething = useMutation(api.myFunctions.plantrecommendation);
+  const { isSignedIn, user, isLoaded } = useUser();
 
   const handleSubmit: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
@@ -38,6 +42,24 @@ function CropAi() {
       const cleanedResponse = responseText.replace(/\*/g, '');
 
       setCleanedResponse(cleanedResponse);
+
+      if (!isLoaded) {
+        return;
+      }
+
+      if (isSignedIn && user) {
+        try {
+          await mutateSomething({ 
+            name: user.fullName || 'Unknown', 
+            email: user.primaryEmailAddressId || 'Unknown' ,
+            output:cleanedResponse,
+          });
+          console.log('User added to database successfully');
+        } catch (error) {
+          console.error('Error adding user to database:', error);
+        }
+      }
+
     } catch (error) {
       console.error("Error:", error);
     }

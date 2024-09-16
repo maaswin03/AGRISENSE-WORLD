@@ -2,6 +2,9 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import "../CropDoctor/CropDoctor.css";
 import Navbar from "@/Component/Navbar";
+import { useMutation } from 'convex/react';
+import { useUser } from '@clerk/clerk-react';
+import { api } from "../../convex/_generated/api";
 
 interface DiseaseResponseData {
   text: string;
@@ -18,6 +21,8 @@ function CropDoctor() {
   const [cleanedDiseaseResponse, setCleanedDiseaseResponse] = useState<string>("");
   const [cleanedFertilizerResponse, setCleanedFertilizerResponse] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
+  const mutateSomething = useMutation(api.myFunctions.fertlizerrecommendation);
+  const { isSignedIn, user, isLoaded } = useUser();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -63,6 +68,27 @@ function CropDoctor() {
 
       const cleanedResponse = responseText.replace(/\*/g, "");
       setCleanedFertilizerResponse(cleanedResponse);
+
+      if (!isLoaded) {
+        return;
+      }
+      
+      if (isSignedIn && user) {
+        try {
+          await mutateSomething({ 
+            name: user.fullName || 'Unknown', 
+            email: user.primaryEmailAddressId || 'Unknown' ,
+            cropname:cropName,
+            price:price,
+            type:fertilizerType,
+            output:cleanedResponse,
+          });
+          console.log('User added to database successfully');
+        } catch (error) {
+          console.error('Error adding user to database:', error);
+        }
+      }
+
     } catch (error) {
       console.error("Error:", error);
     }
