@@ -51,24 +51,6 @@ function Dashboard() {
     }
   }, [d1]);
 
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch("https://final-1-jkbd.onrender.com/api/dashboard", {
-  //         method: "GET",
-  //       });
-  //       const data: SensorData = await response.json();
-  //       setSensorData(data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-
   const difftemperature = Math.round(
     Number(sensorData.current_temperature) - Number(sensorData.previous_temperature)
   );
@@ -205,60 +187,6 @@ function Dashboard() {
       },
     ],
   };
-
-  // const chartData4 = {
-  //   labels: [
-  //     sensorData.time,
-  //     sensorData.time1,
-  //     sensorData.time2,
-  //     sensorData.time3,
-  //     sensorData.time4,
-  //     sensorData.time5,
-  //   ],
-  //   datasets: [
-  //     {
-  //       label: "Nitrogen (N)",
-  //       data: [
-  //         sensorData.n,
-  //         sensorData.n1,
-  //         sensorData.n2,
-  //         sensorData.n3,
-  //         sensorData.n4,
-  //         sensorData.n5,
-  //       ],
-  //       borderColor: "rgb(46, 141, 78)",
-  //       backgroundColor: "rgb(46, 141, 78,0.2)",
-  //       fill:'start'
-  //     },
-  //     {
-  //       label: "Phosphorus (P)",
-  //       data: [
-  //         sensorData.p,
-  //         sensorData.p1,
-  //         sensorData.p2,
-  //         sensorData.p3,
-  //         sensorData.p4,
-  //         sensorData.p5,
-  //       ],
-  //       borderColor: "rgb(234, 80, 73)",
-  //       backgroundColor: "rgb(234, 80, 73,0.2)",
-  //       fill: "start",
-  //     },
-  //     {
-  //       label: "Potassium (K)",
-  //       data: [
-  //         sensorData.k,
-  //         sensorData.k1,
-  //         sensorData.k2,
-  //         sensorData.k3,
-  //         sensorData.k4,
-  //         sensorData.k5,
-  //       ],
-  //       borderColor: "rgba(75, 192, 192, 1)",
-  //       backgroundColor: "rgba(75, 192, 192, 0.2)",
-  //     },
-  //   ],
-  // };
 
   const chartData4 = {
     labels: [

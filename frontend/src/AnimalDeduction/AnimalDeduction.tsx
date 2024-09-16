@@ -8,6 +8,7 @@ import crop from "../Image/crop.jpg";
 import rabbit from "../Image/rabbit.jpeg";
 import "../AnimalDeduction/AnimalDeduction.css";
 import Navbar from "@/Component/Navbar";
+import Footer from "@/Component/Footer";
 
 function AnimalDeduction() {
   const [animal1, setanimal1] = useState<boolean>(false);
@@ -27,23 +28,6 @@ function AnimalDeduction() {
           <div className="animal3"></div>
         </div>
       </div>
-
-      {/* <div className="animal4">
-        <div className="animal5">
-          <h1>Field 1</h1>
-          <p>Explore the map for detailed field insights.</p>
-          <div className="animal6">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1333.0024694876488!2d77.69008893312672!3d12.938855184988514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1714217822268!5m2!1sen!2sin"
-              width="100%"
-              height="450"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
-        </div>
-      </div> */}
 
       <div className="animal7">
         <div className="animal8">
@@ -465,6 +449,7 @@ function AnimalDeduction() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

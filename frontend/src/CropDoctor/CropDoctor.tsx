@@ -5,6 +5,7 @@ import Navbar from "@/Component/Navbar";
 import { useMutation } from 'convex/react';
 import { useUser } from '@clerk/clerk-react';
 import { api } from "../../convex/_generated/api";
+import Footer from "@/Component/Footer";
 
 interface DiseaseResponseData {
   text: string;
@@ -132,7 +133,7 @@ function CropDoctor() {
         </div>
       </div>
 
-      <div className="crop21" style={{ marginBottom: '10%' }}>
+      <div className="crop21" style={{ marginBottom: '5%' }}>
         <form onSubmit={handleFertilizerSubmit}>
           <div className="crop40">
             <div className="crop41">
@@ -172,7 +173,7 @@ function CropDoctor() {
             </div>
           </div>
 
-          <button type="submit" style={{ marginBottom: "3%" }}>
+          <button type="submit" style={{ marginBottom: "2%" }}>
             Get your Fertilizer Recommendation
           </button>
         </form>
@@ -187,6 +188,7 @@ function CropDoctor() {
           )}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

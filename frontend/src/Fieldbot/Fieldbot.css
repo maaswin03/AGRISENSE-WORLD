@@ -77,28 +77,28 @@
   font-size: 30px;
   margin-bottom: 3%;
   margin-top: 2%;
-  font-weight: 700;
-  text-align: justify;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  color: white;
 }
 
 .field5 p {
   font-family: Poppins;
   text-align: justify;
   color: white;
+  font-weight: 300;
+  letter-spacing: 0.7px;
 }
 
 .field5 img {
   width: 80%;
+  border-radius: 50%;
 }
 
 .field13 {
   width: 100%;
   margin: auto;
-  background: radial-gradient(
-    circle,
-    rgba(0, 180, 61, 1) 0%,
-    rgba(46, 141, 78, 1) 100%
-  );
+  background-color: rgba(46, 141, 78, 1);
   padding: 3%;
   display: flex;
 }
@@ -113,18 +113,22 @@
   font-size: 30px;
   margin-bottom: 3%;
   margin-top: 2%;
-  font-weight: 700;
-  text-align: justify;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.7px;
 }
 
 .field12 p {
   font-family: Poppins;
   text-align: justify;
   color: white;
+  letter-spacing: 0.7px;
+  font-weight: 300;
 }
 
 .field12 img {
   width: 80%;
+  border-radius: 50%;
 }
 
 .field7 {
@@ -142,7 +146,6 @@
 .field8 {
   width: 95%;
   margin: auto;
-  /* background-color: #626262; */
   display: flex;
   column-gap: 5%;
   margin-bottom: 0;
@@ -155,14 +158,13 @@
   margin: auto;
   margin-bottom: 2%;
   border-radius: 10px;
-  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
   padding: 3%;
 }
 
 .field9 h2 {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .field9 button {

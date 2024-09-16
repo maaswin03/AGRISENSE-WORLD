@@ -1,6 +1,6 @@
-import {useState } from "react";
+import { useState } from "react";
 import { Link } from 'react-router-dom';
-import { UserButton } from "@clerk/clerk-react";
+import { UserButton, useUser } from "@clerk/clerk-react";
 import '../Component/Navbar.css';
 
 type SubmenuState = {
@@ -10,6 +10,7 @@ type SubmenuState = {
 };
 
 function Navbar() {
+    const { isSignedIn } = useUser();
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isSubmenuOpen, setIsSubmenuOpen] = useState<SubmenuState>({
         crop: false,
@@ -59,7 +60,11 @@ function Navbar() {
                         </div>
                     </div>
                     <Link to="/pricing">Pricing</Link>
-                    <UserButton afterSignOutUrl="#" />
+                    {isSignedIn ? (
+                        <UserButton afterSignOutUrl="#" />
+                    ) : (
+                        <Link to="*">Signin</Link>
+                    )}
                 </div>
             </div>
 
@@ -99,7 +104,13 @@ function Navbar() {
                             </ul>
                         </li>
                         <li><Link to="/pricing">Pricing</Link></li>
-                        <UserButton afterSignOutUrl="#" />
+                        {isSignedIn ? (
+                            <div style={{marginLeft:'2%'}}>
+                                <UserButton afterSignOutUrl="#" />
+                            </div>
+                        ) : (
+                            <Link to="*">Signin</Link>
+                        )}
                     </ul>
                 </nav>
             </header>

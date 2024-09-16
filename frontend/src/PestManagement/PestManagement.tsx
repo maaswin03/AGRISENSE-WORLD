@@ -20,6 +20,7 @@ import Navbar from "@/Component/Navbar";
 import { useMutation } from 'convex/react';
 import { useUser } from '@clerk/clerk-react';
 import { api } from "../../convex/_generated/api";
+import Footer from "@/Component/Footer";
 
 
 function Pestmanagement() {
@@ -33,8 +34,6 @@ function Pestmanagement() {
   const [cleanedResponse, setCleanedResponse] = useState<string>("");
   const mutateSomething = useMutation(api.myFunctions.pestrecommendation);
   const { isSignedIn, user, isLoaded } = useUser();
-
-
 
 
   const handleSubmit: MouseEventHandler<HTMLButtonElement> = async (e) => {
@@ -885,7 +884,7 @@ function Pestmanagement() {
           </div>
         </div>
       </div>
-
+      <Footer/>
     </div>
   );
 }
