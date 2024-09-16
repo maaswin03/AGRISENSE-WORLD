@@ -111,6 +111,10 @@ export default defineSchema(
       Temperature: v.float64(),
       pH_Value: v.float64(),
     }),
+    user_data: defineTable({
+      name: v.string(),
+      email: v.string(),
+    }),
   },
   {
     schemaValidation: true,

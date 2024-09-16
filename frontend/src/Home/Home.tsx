@@ -1,4 +1,5 @@
 import Navbar from '../Component/Navbar'
+import { useEffect } from 'react';
 import '../Home/Home.css'
 import image1 from '../Image/mainimage.png'
 import p1 from '../Image/p1.jpeg'
@@ -6,9 +7,37 @@ import p2 from '../Image/p2.jpeg'
 import p4 from '../Image/p4.jpeg'
 import p3 from '../Image/p3.jpg'
 import Footer from '../Component/Footer'
+import { useMutation } from 'convex/react';
+import { api } from '../../convex/_generated/api';
+import { useUser } from '@clerk/clerk-react';
 
 
 function Home() {
+    const mutateSomething = useMutation(api.myFunctions.createTask);
+    const { isSignedIn, user, isLoaded } = useUser();
+  
+    useEffect(() => {
+      const addUserToDatabase = async () => {
+        if (!isLoaded) {
+          return;
+        }
+  
+        if (isSignedIn && user) {
+          try {
+            await mutateSomething({ 
+              name: user.fullName || 'Unknown', 
+              email: user.primaryEmailAddressId || 'Unknown' 
+            });
+            console.log('User added to database successfully');
+          } catch (error) {
+            console.error('Error adding user to database:', error);
+          }
+        }
+      };
+  
+      addUserToDatabase();
+    }, [isSignedIn, user, isLoaded, mutateSomething]);
+    
     return (
         <div>
             <Navbar />
