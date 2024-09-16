@@ -12,7 +12,6 @@ export const fetchplantdata = query({
   args: {},
   handler: async (ctx) => {
     const data = await ctx.db.query("plant_data").collect();
-    console.log(data);
     return data;
   },
 });
