@@ -86,6 +86,7 @@ function CropAi() {
   useEffect(() => {
     if (d1 && Array.isArray(d1)) {
       setSensorData(d1.length > 0 ? d1[0] : {});
+      console.log(sensorData)
     }
   }, [d1]);
 
