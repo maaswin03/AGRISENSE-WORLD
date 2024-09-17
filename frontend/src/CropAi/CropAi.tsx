@@ -18,11 +18,16 @@ interface SensorData1 {
 
 function CropAi() {
   const text = "";
-  const [cleanedResponse, setCleanedResponse] = useState<string>("");
+  const { isSignedIn, user, isLoaded } = useUser();
+  // const [cleanedResponse, setCleanedResponse] = useState<string>("");
   const [sensorData, setSensorData] = useState<SensorData1>({});
   const d1 = useQuery(api.myFunctions.fetchplantdata)
+  const d2 = useQuery(api.myFunctions.fetchplantrecommendation, {
+    email: user?.primaryEmailAddressId || 'Unknown'
+  });  
   const mutateSomething = useMutation(api.myFunctions.plantrecommendation);
-  const { isSignedIn, user, isLoaded } = useUser();
+
+  console.log(d2);
 
   const handleSubmit: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
@@ -37,7 +42,7 @@ function CropAi() {
 
       const cleanedResponse = responseText.replace(/\*/g, '');
 
-      setCleanedResponse(cleanedResponse);
+      // setCleanedResponse(cleanedResponse);
 
       if (!isLoaded) {
         return;
@@ -80,7 +85,8 @@ function CropAi() {
 
       <div className="crop21">
         <div className="crop22" style={{ whiteSpace: 'pre-line' }}>
-          {cleanedResponse ? <p>{cleanedResponse}</p> : <p>Please Click the button below to get your crop recommendation</p>}
+          {/* {cleanedResponse ? <p>{cleanedResponse}</p> : <p>Please Click the button below to get your crop recommendation</p>} */}
+          <p>{d2}</p>
         </div>
         <button onClick={handleSubmit}>Get your Crop recommendation</button>
       </div>

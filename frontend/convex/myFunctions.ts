@@ -18,6 +18,72 @@ export const fetchplantdata = query({
   },
 });
 
+export const fetchplantrecommendation = query({
+  args: {email:v.string()},
+  handler: async (ctx,{email}) => {
+    try{
+      const existingUser = await ctx.db.query("plant_recommendation")
+      .filter((q) => q.eq(q.field("email"), email))
+      .first();
+  
+      if (existingUser) {
+        return existingUser.output;
+      }
+      else{
+        return "Please Click the button below to get your crop recommendation";
+      }
+    }catch(error){
+      console.error("Error fetching plant recommendation: ", error);
+      throw new Error("Failed to fetch plant recommendation.");
+    }
+  },
+});
+
+
+export const fetchfertrecommendation = query({
+  args: {email:v.string()},
+  handler: async (ctx,{email}) => {
+    try{
+      const existingUser = await ctx.db.query("fertilizer_recommendation")
+      .filter((q) => q.eq(q.field("email"), email))
+      .first();
+  
+      if (existingUser) {
+        return existingUser.output;
+      }
+      else{
+        return "Please fill out the form above and click the button to get your fertilizer recommendation. All recommendations are based on collected real-time data.";
+      }
+    }catch(error){
+      console.error("Error fetching fertilizer recommendation: ", error);
+      throw new Error("Failed to fetch fertilizer recommendation.");
+    }
+  },
+});
+
+export const fetchpestrecommendation = query({
+  args: {email:v.string()},
+  handler: async (ctx,{email}) => {
+    try{
+      const existingUser = await ctx.db.query("pest_recommendation")
+      .filter((q) => q.eq(q.field("email"), email))
+      .first();
+  
+      if (existingUser) {
+        return existingUser.output;
+      }
+      else{
+        return "Please Click the button below to get your pest control recommendation";
+      }
+    }catch(error){
+      console.error("Error fetching pest recommendation: ", error);
+      throw new Error("Failed to fetch pest recommendation.");
+    }
+  },
+});
+
+
+
 export const createTask = mutation({
   args: { name: v.string(), email: v.string() },
   handler: async (ctx, { name, email }) => {

@@ -20,6 +20,7 @@ import Navbar from "@/Component/Navbar";
 import { useMutation } from 'convex/react';
 import { useUser } from '@clerk/clerk-react';
 import { api } from "../../convex/_generated/api";
+import { useQuery } from "convex/react";
 import Footer from "@/Component/Footer";
 
 
@@ -30,10 +31,13 @@ function Pestmanagement() {
   const [animal4, setanimal4] = useState<boolean>(false);
   const [animal5, setanimal5] = useState<boolean>(false);
   const [animal6, setanimal6] = useState<boolean>(false);
-  const text = "";
-  const [cleanedResponse, setCleanedResponse] = useState<string>("");
-  const mutateSomething = useMutation(api.myFunctions.pestrecommendation);
   const { isSignedIn, user, isLoaded } = useUser();
+  const text = "";
+  // const [cleanedResponse, setCleanedResponse] = useState<string>("");
+  const mutateSomething = useMutation(api.myFunctions.pestrecommendation);
+  const d2 = useQuery(api.myFunctions.fetchpestrecommendation, {
+    email: user?.primaryEmailAddressId || 'Unknown'
+  });  
 
 
   const handleSubmit: MouseEventHandler<HTMLButtonElement> = async (e) => {
@@ -47,7 +51,7 @@ function Pestmanagement() {
 
       const cleanedResponse = responseText.replace(/\*/g, '');
 
-      setCleanedResponse(cleanedResponse);
+      // setCleanedResponse(cleanedResponse);
 
       if (!isLoaded) {
         return;
@@ -91,7 +95,8 @@ function Pestmanagement() {
 
       <div className="crop21">
         <div className="crop22" style={{ whiteSpace: 'pre-line' }}>
-          {cleanedResponse ? <p>{cleanedResponse}</p> : <p>Please Click the button below to get your pest control recommendation</p>}
+          {/* {cleanedResponse ? <p>{cleanedResponse}</p> : <p>Please Click the button below to get your pest control recommendation</p>} */}
+          <p>{d2}</p>
         </div>
         <button onClick={handleSubmit}>Get your recommendation</button>
       </div>
