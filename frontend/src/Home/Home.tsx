@@ -67,7 +67,7 @@ function Home() {
                 try {
                     await mutateSomething({
                         name: user.fullName || 'Unknown',
-                        email: user.primaryEmailAddressId || 'Unknown'
+                        email: user.primaryEmailAddressId || 'Unknown',
                     });
                     console.log('User added to database successfully');
                 } catch (error) {

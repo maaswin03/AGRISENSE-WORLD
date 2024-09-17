@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../Component/Navbar';
 import '../Pricing/Pricing.css';
 import Footer from '../Component/Footer';
+import { useUser } from '@clerk/clerk-react';
 
 interface RazorpayOptions {
   key: string;
@@ -24,6 +25,7 @@ interface RazorpayOptions {
 }
 
 const Pricing: React.FC = () => {
+  const {user} = useUser();
   const handleSubmit = (amount: number) => {
     if (amount === 0) {
       alert('Please enter an amount');
@@ -36,9 +38,9 @@ const Pricing: React.FC = () => {
         name: 'AgriSense',
         description: 'for testing purpose',
         prefill: {
-          name: 'ASWIN M A',
-          email: 'aswin@gmail.com',
-          contact: '9597496287',
+          name: user?.fullName || 'Unknown',
+          email: user?.primaryEmailAddressId || 'Unknown',
+          contact: user?.primaryPhoneNumberId || 'Unknown',
         },
         notes: {
           address: 'Razorpay Corporate office',

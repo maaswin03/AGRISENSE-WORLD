@@ -33,7 +33,6 @@ function Pestmanagement() {
   const [animal6, setanimal6] = useState<boolean>(false);
   const { isSignedIn, user, isLoaded } = useUser();
   const text = "";
-  // const [cleanedResponse, setCleanedResponse] = useState<string>("");
   const mutateSomething = useMutation(api.myFunctions.pestrecommendation);
   const d2 = useQuery(api.myFunctions.fetchpestrecommendation, {
     email: user?.primaryEmailAddressId || 'Unknown'
@@ -51,7 +50,6 @@ function Pestmanagement() {
 
       const cleanedResponse = responseText.replace(/\*/g, '');
 
-      // setCleanedResponse(cleanedResponse);
 
       if (!isLoaded) {
         return;

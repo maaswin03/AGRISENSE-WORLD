@@ -133,6 +133,11 @@ export default defineSchema(
       email: v.string(),
       output : v.string()
     }),
+    conversations: defineTable({
+      email: v.string(),
+      userMessages: v.array(v.string()),
+      botMessages: v.array(v.string()),
+    })
   },
   {
     schemaValidation: true,
