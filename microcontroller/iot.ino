@@ -6,7 +6,7 @@
 
 const char* ssid = "Iphone 11";
 const char* password = "0987654321";
-const char* serverName = "final-04do.onrender.com";
+const char* serverName = "agrisense-world.onrender.com";
 
 #define DHTPIN 2
 #define DHTTYPE DHT11
@@ -100,7 +100,7 @@ void loop() {
   postData += motorState;
   postData += "}";
 
-  client.println("POST api/data HTTP/1.1");
+  client.println("POST api/data22 HTTP/1.1");
   client.println("Host: final-04do.onrender.com");
   client.println("Content-Type: application/json");
   client.print("Content-Length: ");
