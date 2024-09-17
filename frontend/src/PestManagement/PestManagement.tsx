@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "../PestManagement/PestManagement.css";
 import image1 from "../Image/Insecticidal Soap.jpeg";
@@ -34,9 +34,10 @@ function Pestmanagement() {
   const { isSignedIn, user, isLoaded } = useUser();
   const text = "";
   const mutateSomething = useMutation(api.myFunctions.pestrecommendation);
+  const mutateSomething1 = useMutation(api.myFunctions.upsertSensorData);
   const d2 = useQuery(api.myFunctions.fetchpestrecommendation, {
     email: user?.primaryEmailAddressId || 'Unknown'
-  });  
+  });
 
 
   const handleSubmit: MouseEventHandler<HTMLButtonElement> = async (e) => {
@@ -57,10 +58,10 @@ function Pestmanagement() {
 
       if (isSignedIn && user) {
         try {
-          await mutateSomething({ 
-            name: user.fullName || 'Unknown', 
-            email: user.primaryEmailAddressId || 'Unknown' ,
-            output:cleanedResponse,
+          await mutateSomething({
+            name: user.fullName || 'Unknown',
+            email: user.primaryEmailAddressId || 'Unknown',
+            output: cleanedResponse,
           });
           console.log('User added to database successfully');
         } catch (error) {
@@ -72,6 +73,95 @@ function Pestmanagement() {
       console.error("Error:", error);
     }
   };
+
+
+  useEffect(() => {
+    try {
+      mutateSomething1({
+        device_id: "device_123",
+        current_time: "2024-09-17T10:15:00Z",
+        current_humidity: 55.2,
+        current_light_intensity: 800,
+        current_soil_moisture: 35.6,
+        current_temperature: 22.5,
+        current_wind_speed: 12.7,
+        current_nitrogen: 40,
+        current_phosphorus: 25,
+        current_potassium: 30,
+        current_water_level: 65.3,
+        latitude: 37.7749,
+        longitude: -122.4194,
+        fire_status: "1",
+        gas_status: "0",
+        ph_value: "6.8",
+        irrigation: "0",
+        irrigation_time: "2024-09-17T10:15:00Z",
+        previous_time: "2024-09-17T09:00:00Z",
+        previous_humidity: 53.1,
+        previous_light_intensity: 750,
+        previous_soil_moisture: 34.8,
+        previous_temperature: 21.8,
+        previous_wind_speed: 11.9,
+        previous_nitrogen: 39,
+        previous_phosphorus: 24,
+        previous_potassium: 29,
+        previous_water_level: 64.8,
+        previous1_time: "2024-09-17T08:00:00Z",
+        previous1_humidity: 52.4,
+        previous1_light_intensity: 720,
+        previous1_soil_moisture: 34.2,
+        previous1_temperature: 21.5,
+        previous1_wind_speed: 11.4,
+        previous1_nitrogen: 38,
+        previous1_phosphorus: 23,
+        previous1_potassium: 28,
+        previous1_water_level: 64.1,
+        previous2_time: "2024-09-17T07:00:00Z",
+        previous2_humidity: 51.7,
+        previous2_light_intensity: 700,
+        previous2_soil_moisture: 33.7,
+        previous2_temperature: 21.2,
+        previous2_wind_speed: 10.9,
+        previous2_nitrogen: 37,
+        previous2_phosphorus: 22,
+        previous2_potassium: 27,
+        previous2_water_level: 63.6,
+        previous3_time: "2024-09-17T06:00:00Z",
+        previous3_humidity: 51.0,
+        previous3_light_intensity: 690,
+        previous3_soil_moisture: 33.4,
+        previous3_temperature: 21.0,
+        previous3_wind_speed: 10.5,
+        previous3_nitrogen: 36,
+        previous3_phosphorus: 21,
+        previous3_potassium: 26,
+        previous3_water_level: 63.0,
+        previous4_time: "2024-09-17T05:00:00Z",
+        previous4_humidity: 50.2,
+        previous4_light_intensity: 680,
+        previous4_soil_moisture: 33.0,
+        previous4_temperature: 20.8,
+        previous4_wind_speed: 10.2,
+        previous4_nitrogen: 35,
+        previous4_phosphorus: 20,
+        previous4_potassium: 25,
+        previous4_water_level: 62.5,
+        previous5_time: "2024-09-17T04:00:00Z",
+        previous5_humidity: 49.5,
+        previous5_light_intensity: 670,
+        previous5_soil_moisture: 32.6,
+        previous5_temperature: 20.5,
+        previous5_wind_speed: 9.9,
+        previous5_nitrogen: 34,
+        previous5_phosphorus: 19,
+        previous5_potassium: 24,
+        previous5_water_level: 62.0
+      })
+      console.log('User added to database successfully');
+    } catch (error) {
+      console.error('Error adding user to database:', error);
+    }
+  })
 
   return (
     <div>
@@ -887,7 +977,7 @@ function Pestmanagement() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
