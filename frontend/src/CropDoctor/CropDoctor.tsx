@@ -5,6 +5,7 @@ import Navbar from "@/Component/Navbar";
 import { useMutation } from 'convex/react';
 import { useUser } from '@clerk/clerk-react';
 import { api } from "../../convex/_generated/api";
+import { useQuery } from "convex/react";
 import Footer from "@/Component/Footer";
 
 interface DiseaseResponseData {
@@ -20,17 +21,20 @@ function CropDoctor() {
   const [price, setPrice] = useState<string>("");
   const [fertilizerType, setFertilizerType] = useState<string>("Natural");
   const [cleanedDiseaseResponse, setCleanedDiseaseResponse] = useState<string>("");
-  const [cleanedFertilizerResponse, setCleanedFertilizerResponse] = useState<string>("");
+  // const [cleanedFertilizerResponse, setCleanedFertilizerResponse] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const mutateSomething = useMutation(api.myFunctions.fertlizerrecommendation);
   const { isSignedIn, user, isLoaded } = useUser();
+  const d2 = useQuery(api.myFunctions.fetchfertrecommendation, {
+    email: user?.primaryEmailAddressId || 'Unknown'
+  });  
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const uploadedFile = e.target.files[0];
       setFile(uploadedFile);
-      setImagePreviewUrl(URL.createObjectURL(uploadedFile)); // Set image preview URL
+      setImagePreviewUrl(URL.createObjectURL(uploadedFile));
     }
   };
 
@@ -71,7 +75,7 @@ function CropDoctor() {
       const responseText = res.data.text;
 
       const cleanedResponse = responseText.replace(/\*/g, "");
-      setCleanedFertilizerResponse(cleanedResponse);
+      // setCleanedFertilizerResponse(cleanedResponse);
 
       if (!isLoaded) {
         return;
@@ -187,14 +191,15 @@ function CropDoctor() {
           </button>
         </form>
         <div className="crop22" style={{ whiteSpace: 'pre-line' }}>
-          {cleanedFertilizerResponse ? (
+          {/* {cleanedFertilizerResponse ? (
             <p>{cleanedFertilizerResponse}</p>
           ) : (
             <p>
               Please fill out the form above and click the button to get your
               fertilizer recommendation. All recommendations are based on collected real-time data.
             </p>
-          )}
+          )} */}
+          <p>{d2}</p>
         </div>
       </div>
       <Footer />
