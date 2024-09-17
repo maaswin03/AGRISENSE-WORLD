@@ -82,6 +82,46 @@ export const fetchpestrecommendation = query({
   },
 });
 
+export const getConversation = query({
+  args: { email: v.string() },
+  handler: async (ctx, { email }) => {
+    const conversation = await ctx.db.query("conversations")
+      .filter((q) => q.eq(q.field("email"), email))
+      .first();
+    return conversation || { userMessages: [], botMessages: [] };
+  },
+});
+
+export const storeConversation = mutation({
+  args: {
+    email: v.string(),
+    userMessages: v.array(v.string()),
+    botMessages: v.array(v.string()),
+  },
+  handler: async (ctx, { email, userMessages, botMessages }) => {
+    try {
+      const existingConversation = await ctx.db.query("conversations")
+        .filter((q) => q.eq(q.field("email"), email))
+        .first();
+
+      if (existingConversation) {
+        await ctx.db.patch(existingConversation._id, {
+          userMessages: [...existingConversation.userMessages, ...userMessages],
+          botMessages: [...existingConversation.botMessages, ...botMessages],
+        });
+      } else {
+        await ctx.db.insert("conversations", {
+          email,
+          userMessages,
+          botMessages,
+        });
+      }
+    } catch (error) {
+      throw new Error("Failed to store conversation");
+    }
+  },
+});
+
 
 
 export const createTask = mutation({
