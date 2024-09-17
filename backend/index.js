@@ -1,9 +1,7 @@
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "./convex/_generated/api.js";
-import datetime from "node-datetime";
-import { queryEmbeddings } from "./convex/queryEmbeddings.js";
-import dotenv from "dotenv";
-dotenv.config();
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 
 import express from "express";
 import multer from "multer";
@@ -19,7 +17,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const httpClient = new ConvexHttpClient("https://cheerful-mule-131.convex.cloud");
+const httpClient = new ConvexHttpClient(process.env.CONVEX_URL);
 
 async function fetchData() {
   try {
@@ -33,21 +31,15 @@ async function fetchData() {
 fetchData();
 
 app.post("/chatbot", async (req, res) => {
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
   const prompt = req.body.prompt;
 
   try {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = await response.text();
-    const queryVector = await getVectorFromText(text);
 
-    const vectorSearchResult = await queryEmbeddings(queryVector);
-
-    console.log("Generated Text:", text);
-    console.log("Vector Search Results:", vectorSearchResult);
-
-    res.json({ text, vectorSearchResult });
+    res.json({ text });
   } catch (error) {
     res
       .status(500)
@@ -62,7 +54,7 @@ app.post("/cropai", async (req, res) => {
     const data = d1[0];
 
     if (data) {
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
       const prompt = `
         Temperature: ${data.current_temperature}
@@ -83,11 +75,7 @@ app.post("/cropai", async (req, res) => {
         const response = await result.response;
         const text = await response.text();
 
-        const queryVector = await getVectorFromText(text);
-
-        const vectorSearchResult = await queryEmbeddings(queryVector);
-
-        res.json({ text, vectorSearchResult });
+        res.json({ text });
       } catch (error) {
         res.status(500).json({
           message: "An error occurred while generating content",
@@ -105,13 +93,12 @@ app.post("/cropai", async (req, res) => {
 });
 
 app.post("/cropfertilizer", async (req, res) => {
-  const device_id = "ab01";
-
+  const d1 = await httpClient.query(api.myFunctions.fetchAllDataFromSensor);
+  const data = d1[0];
   try {
-    const data = await collection.findOne({ device_id: device_id });
 
     if (data) {
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
       const prompt = `
         Temperature: ${data.current_temperature}
@@ -157,11 +144,8 @@ app.post("/pest", async (req, res) => {
     const response = await result.response;
     const text = await response.text();
 
-    const queryVector = await getVectorFromText(text);
+    res.json({ text});
 
-    const vectorSearchResult = await queryEmbeddings(queryVector);
-
-    res.json({ text, vectorSearchResult });
   } catch (error) {
     res
       .status(500)
