@@ -11,53 +11,27 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Navbar from "@/Component/Navbar";
 import Footer from "@/Component/Footer";
+import { api } from "../../convex/_generated/api";
+import { useQuery } from "convex/react";
 
-interface SensorData {
-  soil?: string;
-  soil1?: string;
-  soil2?: string;
-  soil3?: string;
-  soil4?: string;
-  soil5?: string;
-  soil6?: string;
-  time?: string;
-  time1?: string;
-  time2?: string;
-  time3?: string;
-  time4?: string;
-  time5?: string;
-  time6?: string;
-  water_level?: number;
-  water_level1?: number;
-  water_level2?: number;
-  water_level3?: number;
-  water_level4?: number;
-  water_level5?: number;
-  water_level6?: number;
-  irrigation?: number;
-  irrigationtime?: string;
-  phvalue?: Float32Array;
-  gas?: number;
+interface SensorData1 {
+  [key: string]: any;
 }
 
+
 function Fieldbot() {
-  const [sensorData, setSensorData] = useState<SensorData>({});
+  const [sensorData, setSensorData] = useState<SensorData1>({});
+  const d1 = useQuery(api.myFunctions.fetchAllDataFromSensor)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://final-1-jkbd.onrender.com/api/fieldbot", {
-          method: "GET",
-        });
-        const data: SensorData = await response.json();
-        setSensorData(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    if (d1) {
+      setSensorData(d1);
 
-    fetchData();
-  }, []);
+      if (Array.isArray(d1) && d1.length > 0) {
+        setSensorData(d1[0]);
+      }
+    }
+  }, [d1]);
 
   const AntSwitch = styled(Switch)(({ theme }) => ({
     width: 28,
@@ -104,23 +78,25 @@ function Fieldbot() {
     },
   }));
 
-  const soil = Math.round((Number(sensorData.soil) / 1023) * 100);
-  const soil1 = Math.round((Number(sensorData.soil1) / 1023) * 100);
-  const soil2 = Math.round((Number(sensorData.soil2) / 1023) * 100);
-  const soil3 = Math.round((Number(sensorData.soil3) / 1023) * 100);
-  const soil4 = Math.round((Number(sensorData.soil4) / 1023) * 100);
-  const soil5 = Math.round((Number(sensorData.soil5) / 1023) * 100);
-  const soil6 = Math.round((Number(sensorData.soil6) / 1023) * 100);
+
+  const soil = Math.round((Number(sensorData.current_soil_moisture) / 1023) * 100);
+  const soil1 = Math.round((Number(sensorData.previous_soil_moisture) / 1023) * 100);
+  const soil2 = Math.round((Number(sensorData.previous1_soil_moisture) / 1023) * 100);
+  const soil3 = Math.round((Number(sensorData.previous2_soil_moisture) / 1023) * 100);
+  const soil4 = Math.round((Number(sensorData.previous3_soil_moisture) / 1023) * 100);
+  const soil5 = Math.round((Number(sensorData.previous4_soil_moisture) / 1023) * 100);
+  const soil6 = Math.round((Number(sensorData.previous5_soil_moisture) / 1023) * 100);
+
 
   const chartData = {
     labels: [
-      sensorData.time,
-      sensorData.time1,
-      sensorData.time2,
-      sensorData.time3,
-      sensorData.time4,
-      sensorData.time5,
-      sensorData.time6,
+      sensorData.current_time,
+      sensorData.previous_time,
+      sensorData.previous1_time,
+      sensorData.previous2_time,
+      sensorData.previous3_time,
+      sensorData.previous4_time,
+      sensorData.previous5_time,
     ],
     datasets: [
       {
@@ -135,25 +111,25 @@ function Fieldbot() {
 
   const chartData1 = {
     labels: [
-      sensorData.time,
-      sensorData.time1,
-      sensorData.time2,
-      sensorData.time3,
-      sensorData.time4,
-      sensorData.time5,
-      sensorData.time6,
+      sensorData.current_time,
+      sensorData.previous_time,
+      sensorData.previous1_time,
+      sensorData.previous2_time,
+      sensorData.previous3_time,
+      sensorData.previous4_time,
+      sensorData.previous5_time,
     ],
     datasets: [
       {
         label: "Water level (m)",
         data: [
-          sensorData.water_level,
-          sensorData.water_level1,
-          sensorData.water_level2,
-          sensorData.water_level3,
-          sensorData.water_level4,
-          sensorData.water_level5,
-          sensorData.water_level6,
+          sensorData.current_water_level,
+          sensorData.previous_water_level,
+          sensorData.previous1_water_level,
+          sensorData.previous2_water_level,
+          sensorData.previous3_water_level,
+          sensorData.previous4_water_level,
+          sensorData.previous5_water_level,
         ],
         borderColor: "rgb(46, 141, 78)",
         backgroundColor: "rgba(46, 141, 78, 0.3)",
@@ -326,7 +302,7 @@ function Fieldbot() {
                 textAlign: "center",
               }}
             >
-              {sensorData.water_level}
+              {sensorData.current_water_level}
             </p>
             <p style={{ color: "#4F7D96" }}>Current Value</p>
           </div>
@@ -340,7 +316,7 @@ function Fieldbot() {
                 color: "rgb(70, 70, 70)",
               }}
             >
-              {sensorData.irrigation == 1 ? (
+              {sensorData.irrigation == "1" ? (
                 <p
                   style={{
                     color: "green",
@@ -365,7 +341,7 @@ function Fieldbot() {
               )}
             </p>
             <p style={{ color: "#4F7D96" }}>
-              Last Irrigation : {sensorData.irrigationtime}
+              Last Irrigation : {sensorData.irrigation_time}
             </p>
           </div>
           <div className="dash8">
@@ -417,7 +393,7 @@ function Fieldbot() {
                 textAlign: "center",
               }}
             >
-              {sensorData.phvalue}
+              {sensorData.ph_value}
             </p>
             <p style={{ color: "#4F7D96" }}>Current Value</p>
           </div>
@@ -431,7 +407,7 @@ function Fieldbot() {
                 color: "rgb(70, 70, 70)",
               }}
             >
-              {sensorData.gas == 0 ? (
+              {sensorData.gas_status == "0" ? (
                 <p
                   style={{
                     color: "green",
@@ -460,7 +436,7 @@ function Fieldbot() {
           <div className="dash8">
             <p>Fire Detection Status</p>
             <p>
-              {sensorData.gas == 0 ? (
+              {sensorData.fire_status == "0" ? (
                 <p
                   style={{
                     color: "green",
