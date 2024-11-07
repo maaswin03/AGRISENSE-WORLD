@@ -6,6 +6,10 @@ import numpy as np
 import google.generativeai as genai
 from twilio.rest import Client
 import joblib
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -24,7 +28,7 @@ label_encoder_disease = joblib.load('./label_encoder_disease.pkl')
 data = pd.read_csv('../datasets/sample_agriculture_data.csv')
 
 
-genai.configure(api_key="AIzaSyAduIcZDRi6-ukFsRdBy2wskG3dNyIkn5o")
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 def get_rainfall_data(state_name):
     filtered_data = rainfall_data[rainfall_data['SUBDIVISION'] == state_name]
@@ -105,8 +109,8 @@ def predict():
         return jsonify({'error': str(e)}), 500
 
 def send_sms_notification(to_phone_number, disease_name, guide):
-    account_sid = 'AC5dfa328dcaadfe481000b4d46776f54f'
-    auth_token = '1c70086ec4d56cd43b10499e44caf5eb'
+    account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+    auth_token = os.getenv('TWILIO_AUTH_TOKEN')
 
     client = Client(account_sid, auth_token)
 
