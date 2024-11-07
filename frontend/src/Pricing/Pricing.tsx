@@ -57,18 +57,18 @@ const Pricing: React.FC = () => {
 
   const handleAmount = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handleSubmit(5000);
+    handleSubmit(1599);
   };
 
 
   const handleAmount1 = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handleSubmit(10000);
+    handleSubmit(2999);
   };
 
   const handleAmount2 = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handleSubmit(15000);
+    handleSubmit(3999);
   };
 
   return (
@@ -82,7 +82,7 @@ const Pricing: React.FC = () => {
             <div>
               <h2>Startup</h2>
               <div className="products4">
-                <h3>₹5,000.00</h3>
+                <h3>₹1,599.00</h3>
               </div>
               <p>Everything you need to get started</p>
               <div>
@@ -116,7 +116,7 @@ const Pricing: React.FC = () => {
             <div>
               <h2>Enterprises</h2>
               <div className="products4">
-                <h3>₹10,000.00</h3>
+                <h3>₹2,999.00</h3>
               </div>
               <p>Everything in the Startup plan plus</p>
               <div>
@@ -150,8 +150,8 @@ const Pricing: React.FC = () => {
             <div>
               <h2>Premium</h2>
               <div className="products4">
-                <h3>₹15,000.00</h3>
-              </div>
+                <h3>₹3,999.00</h3>
+              </div> 
               <p>Everything in the Enterprises plan plus</p>
               <div className="products6">
                 <ul>

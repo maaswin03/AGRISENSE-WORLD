@@ -21,7 +21,7 @@ const Chatbot: React.FC = () => {
     setMessages([...messages, userMessage]);
 
     try {
-      const res = await axios.post("https://final-04do.onrender.com/chatbot", {
+      const res = await axios.post("http://139.84.142.129:5100/chatbot", {
         prompt: input,
       });
 

@@ -1,3 +1,4 @@
+import https from 'https';
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "./convex/_generated/api.js";
 import dotenv from 'dotenv';
@@ -14,10 +15,22 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://agrisense.online',
+  methods: ['GET', 'POST'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const httpClient = new ConvexHttpClient(process.env.CONVEX_URL);
+
+const options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/api.agrisense.online/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/api.agrisense.online/cert.pem'),
+  ca: fs.readFileSync('/etc/letsencrypt/live/api.agrisense.online/chain.pem')
+};
 
 async function fetchData() {
   try {
@@ -169,7 +182,7 @@ const upload = multer({
 }).single("image");
 
 function checkFileType(file, cb) {
-  const filetypes = /jpeg|jpg|png|gif/;
+  const filetypes = /jpeg|jpg|png|gif|webp/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = filetypes.test(file.mimetype);
 
@@ -217,5 +230,13 @@ app.post("/api/upload", async (req, res) => {
 
 app.use("/uploads", express.static("uploads"));
 
-const PORT = process.env.PORT || 5100;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+const server = https.createServer(options, app);
+
+app.get('/', (req, res) => {
+  res.send('Hello, HTTPS World!');
+});
+
+const PORT = 5100;
+server.listen(PORT, () => {
+  console.log(`Server is running on https://api.agrisense.online`);
+});

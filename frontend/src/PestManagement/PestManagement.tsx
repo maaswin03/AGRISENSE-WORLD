@@ -44,7 +44,7 @@ function Pestmanagement() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("https://final-04do.onrender.com/pest", {
+      const res = await axios.post("https://api.agrisense.online:5100/pest", {
         prompt: text,
       });
       const responseText = res.data.text;

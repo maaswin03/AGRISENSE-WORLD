@@ -46,7 +46,7 @@ function CropDoctor() {
     formData.append("image", file);
 
     try {
-      const res = await axios.post<DiseaseResponseData>("https://final-04do.onrender.com/api/upload", formData, {
+      const res = await axios.post<DiseaseResponseData>("https://api.agrisense.online:5100/api/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -69,7 +69,7 @@ function CropDoctor() {
     const formattedResponse = `Crop Name: ${cropName}, Desired Price: ${price}, Fertilizer Type: ${fertilizerType}`;
 
     try {
-      const res = await axios.post<FertilizerResponseData>("https://final-04do.onrender.com/cropfertilizer", {
+      const res = await axios.post<FertilizerResponseData>("https://api.agrisense.online:5100/cropfertilizer", {
         prompt: formattedResponse,
       });
       const responseText = res.data.text;

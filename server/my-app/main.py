@@ -208,6 +208,12 @@ def upsert_sensor_data():
         return jsonify({"message": "Sensor data added successfully"}), 200
     except Exception as e:
         return jsonify({"error": f"Error adding sensor data: {e}"}), 500
+
+@app.route('/api/data', methods=['POST'])
+def sensor_data():
+    data = request.json
+
+    return data
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)

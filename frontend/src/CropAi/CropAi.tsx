@@ -8,6 +8,8 @@ import { useMutation } from 'convex/react';
 import { useUser } from '@clerk/clerk-react';
 import  Footer  from "../Component/Footer";
 
+
+
 interface ResponseData {
   text: string;
 }
@@ -19,7 +21,6 @@ interface SensorData1 {
 function CropAi() {
   const text = "";
   const { isSignedIn, user, isLoaded } = useUser();
-  // const [cleanedResponse, setCleanedResponse] = useState<string>("");
   const [sensorData, setSensorData] = useState<SensorData1>({});
   const d1 = useQuery(api.myFunctions.fetchplantdata)
   const d2 = useQuery(api.myFunctions.fetchplantrecommendation, {
@@ -33,7 +34,7 @@ function CropAi() {
     e.preventDefault();
 
     try {
-      const res = await axios.post<ResponseData>("https://final-04do.onrender.com/cropai", {
+      const res = await axios.post<ResponseData>("https://api.agrisense.online:5100/cropai", {
         prompt: text,
       });
       const responseText = res.data.text;
@@ -42,7 +43,6 @@ function CropAi() {
 
       const cleanedResponse = responseText.replace(/\*/g, '');
 
-      // setCleanedResponse(cleanedResponse);
 
       if (!isLoaded) {
         return;
@@ -85,7 +85,6 @@ function CropAi() {
 
       <div className="crop21">
         <div className="crop22" style={{ whiteSpace: 'pre-line' }}>
-          {/* {cleanedResponse ? <p>{cleanedResponse}</p> : <p>Please Click the button below to get your crop recommendation</p>} */}
           <p>{d2}</p>
         </div>
         <button onClick={handleSubmit}>Get your Crop recommendation</button>

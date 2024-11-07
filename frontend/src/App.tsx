@@ -11,8 +11,16 @@ import Pricing from './Pricing/Pricing';
 import Alert from './Alert/Alert';
 import Chatbot from './Chatbot/Chatbot';
 import Login from "./Login/Login";
+import Loading from "./Component/Loading";
+
 
 export default function App() {
+  const {isLoaded } = useAuth();
+  
+  if (!isLoaded) {
+    return <Loading/>;
+  }
+
   return (
       <Router>
         <Routes>

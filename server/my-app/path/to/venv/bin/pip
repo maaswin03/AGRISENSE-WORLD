@@ -1,4 +1,4 @@
-#!/Users/__aswin__x/Documents/VSCode/AGRISENSE-WORLD/server/my-app/path/to/venv/bin/python3.12
+#!/Users/kyroz/Documents/VSCode/AGRISENSE-WORLD/server/my-app/path/to/venv/bin/python3.13
 # -*- coding: utf-8 -*-
 import re
 import sys

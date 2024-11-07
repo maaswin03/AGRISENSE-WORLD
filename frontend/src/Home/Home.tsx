@@ -336,7 +336,7 @@ function Home() {
                         <div>
                             <h2>Startup</h2>
                             <div className="products4">
-                                <h3>₹5,000.00</h3>
+                                <h3>₹1,599.00</h3>
                             </div>
                             <p>Everything you need to get started</p>
                             <div>
@@ -370,7 +370,7 @@ function Home() {
                         <div>
                             <h2>Enterprises</h2>
                             <div className="products4">
-                                <h3>₹10,000.00</h3>
+                                <h3>₹2,999.00</h3>
                             </div>
                             <p>Everything in the Startup plan plus</p>
                             <div>
@@ -404,7 +404,7 @@ function Home() {
                         <div>
                             <h2>Premium</h2>
                             <div className="products4">
-                                <h3>₹15,000.00</h3>
+                                <h3>₹3,999.00</h3>
                             </div>
                             <p>Everything in the Enterprises plan plus</p>
                             <div className="products6">

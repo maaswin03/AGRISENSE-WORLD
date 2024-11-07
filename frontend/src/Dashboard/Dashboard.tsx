@@ -3,6 +3,15 @@ import { useQuery } from "convex/react";
 import "../Dashboard/Dashboard.css";
 import { api } from "../../convex/_generated/api";
 import { Line, Bar } from "react-chartjs-2";
+
+
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import markerIconPng from 'leaflet/dist/images/marker-icon.png';
+import markerShadowPng from 'leaflet/dist/images/marker-shadow.png';
+
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -37,9 +46,21 @@ interface SensorData1 {
 }
 
 
+const markerIcon = new L.Icon({
+  iconUrl: markerIconPng,
+  shadowUrl: markerShadowPng,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+
 function Dashboard() {
   const [sensorData, setSensorData] = useState<SensorData1>({});
-  const d1 = useQuery(api.myFunctions.fetchAllDataFromSensor)
+  const d1 = useQuery(api.myFunctions.fetchAllDataFromSensor);
+
+  console.log(d1);
 
   useEffect(() => {
     if (d1) {
@@ -50,6 +71,7 @@ function Dashboard() {
       }
     }
   }, [d1]);
+
 
   const difftemperature = Math.round(
     Number(sensorData.current_temperature) - Number(sensorData.previous_temperature)
@@ -547,7 +569,7 @@ function Dashboard() {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="dash1">
         <h2>Sensor Data Over Time</h2>
         <p>Visual representation of sensor data over time</p>
@@ -699,14 +721,51 @@ function Dashboard() {
         <h2>Current Location</h2>
         <p>Real-time location of your fields</p>
         <div className="dash5">
-          <iframe
-            src={`https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3916.340156854884!2d${sensorData.longitude}!3d${sensorData.latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1714217822268!5m2!1sen!2sin`}
-            width="100%"
-            height="450"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-          <iframe width="650" height="450" src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=5&overlay=wind&product=ecmwf&level=surface&lat=7.101&lon=76.992&detailLat=11.014&detailLon=76.994&detail=true&pressure=true&message=true"></iframe>
+          <MapContainer center={[11.0131, 77.1146]} zoom={10} style={{ height: "500px", width: "100%" }}>
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {d1 && Array.isArray(d1) ? (
+              d1.map((loc, index) => {
+                // Check for valid coordinates
+                if (loc.latitude !== undefined && loc.longitude !== undefined) {
+                  return (
+                    <Marker key={index} position={[loc.latitude, loc.longitude]} icon={markerIcon}>
+                      <Popup>
+                        <strong style={{ fontWeight: '700' }}>{loc.device_id || "Unknown Device"}</strong>
+                        <br />
+                        Water Level: {loc.current_water_level !== undefined ? `${loc.current_water_level} m` : "N/A"}
+                        <br />
+                        Temperature: {loc.current_temperature !== undefined ? `${loc.current_temperature} °C` : "N/A"}
+                        <br />
+                        Humidity: {loc.current_humidity !== undefined ? `${loc.current_humidity} %` : "N/A"}
+                        <br />
+                        Soil Moisture: {loc.current_soil_moisture !== undefined ? `${loc.current_soil_moisture} m³/s` : "N/A"}
+                        <br />
+                        Light Intensity: {loc.current_light_intensity !== undefined ? `${loc.current_light_intensity} lux` : "N/A"}
+                        <br />
+                        Nitrogen: {loc.current_nitrogen !== undefined ? `${loc.current_nitrogen} mg/kg` : "N/A"}
+                        <br />
+                        Phosphorus: {loc.current_phosphorus !== undefined ? `${loc.current_phosphorus} mg/kg` : "N/A"}
+                        <br />
+                        Potassium: {loc.current_potassium !== undefined ? `${loc.current_potassium} mg/kg` : "N/A"}
+                        <br />
+                        Wind Speed: {loc.current_wind_speed !== undefined ? `${loc.current_wind_speed} m/s` : "N/A"}
+                        <br />
+                        Time: {loc.current_time || "N/A"}
+                      </Popup>
+                    </Marker>
+                  );
+                }
+                return null;
+              })
+            ) : (
+              <p>No data available.</p> 
+            )}
+
+          </MapContainer>
+          <iframe width="650" height="500" src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=5&overlay=wind&product=ecmwf&level=surface&lat=7.101&lon=76.992&detailLat=11.014&detailLon=76.994&detail=true&pressure=true&message=true"></iframe>
         </div>
       </div>
 
@@ -832,7 +891,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
